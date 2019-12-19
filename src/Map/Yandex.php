@@ -21,6 +21,7 @@ class Yandex extends AbstractMap
         
                     var lat = $('#{$id['lat']}');
                     var lng = $('#{$id['lng']}');
+                    var address = $('#{$id['address']});
         
                     var myMap = new ymaps.Map("map_"+name, {
                         center: [lat.val(), lng.val()],
@@ -37,6 +38,7 @@ class Yandex extends AbstractMap
                     myPlacemark.events.add(['dragend'], function (e) {
                         lat.val(myPlacemark.geometry.getCoordinates()[0]);
                         lng.val(myPlacemark.geometry.getCoordinates()[1]);
+                        address.val()
                     });                
     
                     myMap.geoObjects.add(myPlacemark);
@@ -45,29 +47,6 @@ class Yandex extends AbstractMap
             }
             
             init('{$id['lat']}{$id['lng']}');
-        })();
-EOT;
-    }
-
-    public function applyScript2(array $id)
-    {
-        return <<<EOT
-        (function() {
-            function init(name) {
-                ymaps.ready(function(){
-        
-                    var address = $('#{$id['address']}');
-        
-                    var myMap2 = new ymaps.Map("map_address", {
-                        center: [45,45],
-                        zoom: {$this->getParams('zoom')}
-                    }); 
-                   
-                });
-    
-            }
-            
-            init('{$id['address']}');
         })();
 EOT;
     }

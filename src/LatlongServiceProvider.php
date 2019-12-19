@@ -23,9 +23,6 @@ class LatlongServiceProvider extends ServiceProvider
         Admin::booting(function () {
             Form::extend('latlong', Latlong::class);
             Show\Field::macro('latlong', Extension::showField());
-
-            Form::extend('address', Address::class);
-            Show\Field::macro('address', Extension::showField());
         });
     }
 }
