@@ -7,25 +7,22 @@ use Encore\Admin\Form;
 use Encore\Admin\Show;
 use Illuminate\Support\ServiceProvider;
 
-class LatlongServiceProvider extends ServiceProvider
+class AddressServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}
      */
-    public function boot(Extension $extension)
+    public function boot(ExtensionAddress $extension)
     {
-        if (! Extension::boot()) {
+        if (! ExtensionAddress::boot()) {
             return ;
         }
 
         $this->loadViewsFrom($extension->views(), 'laravel-admin-latlong');
 
         Admin::booting(function () {
-            Form::extend('latlong', Latlong::class);
-            Show\Field::macro('latlong', Extension::showField());
-
             Form::extend('address', Address::class);
-            Show\Field::macro('address', Extension::showField());
+            Show\Field::macro('address', ExtensionAddress::showField());
         });
     }
 }

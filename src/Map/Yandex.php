@@ -7,7 +7,7 @@ class Yandex extends AbstractMap
     /**
      * @var string
      */
-    protected $api = '//api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=%s';
+    protected $api = '//api-maps.yandex.ru/2.1/?apikey=%s&lang=ru_RU';
 
     /**
      * {@inheritdoc}
@@ -26,6 +26,7 @@ class Yandex extends AbstractMap
                         center: [lat.val(), lng.val()],
                         zoom: {$this->getParams('zoom')}
                     }); 
+                    
     
                     var myPlacemark = new ymaps.Placemark([lat.val(), lng.val()], {
                     }, {
@@ -44,6 +45,29 @@ class Yandex extends AbstractMap
             }
             
             init('{$id['lat']}{$id['lng']}');
+        })();
+EOT;
+    }
+
+    public function applyScript2(array $id)
+    {
+        return <<<EOT
+        (function() {
+            function init(name) {
+                ymaps.ready(function(){
+        
+                    var address = $('#{$id['address']}');
+        
+                    var myMap2 = new ymaps.Map("map_address", {
+                        center: [45,45],
+                        zoom: {$this->getParams('zoom')}
+                    }); 
+                   
+                });
+    
+            }
+            
+            init('{$id['address']}');
         })();
 EOT;
     }
